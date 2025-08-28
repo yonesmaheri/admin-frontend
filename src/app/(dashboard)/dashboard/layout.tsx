@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import "./globals.css";
 import { Vazirmatn } from "next/font/google";
-import Wrapper from "@/components/modules/wrapper";
+import SidebarLayout from "@/components/modules/sidebar";
 
 export const metadata: Metadata = {
   title: "Yones Maheri - Admin Panel",
@@ -18,13 +17,5 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={`${vazir.className} min-h-screen w-full`}>
-        <Wrapper>
-          {children}
-        </Wrapper>
-      </body>
-    </html>
-  );
+  return <SidebarLayout>{children}</SidebarLayout>;
 }

@@ -1,7 +1,7 @@
-export default function Home() {
-  return (
-    <div className="">
-      سللام
-    </div>
-  );
+import React from "react";
+
+function page() {
+  return <div>page</div>;
 }
+
+export default page;
