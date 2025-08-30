@@ -9,11 +9,11 @@ const login = async (data: any) => {
 
 export const useLogin = () => {
   const queryClient = useQueryClient();
-
+  
   return useMutation({
     mutationFn: login,
     onSuccess: () => {
-      toast.success("ورود با موفقیت انجام شد", {
+      toast.success("Logged in successfuly", {
         position: "bottom-center",
       });
       queryClient.invalidateQueries({ queryKey: ["me"] });

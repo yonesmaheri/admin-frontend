@@ -4,6 +4,7 @@ import CustomTable from "@/components/modules/table";
 import React from "react";
 import { renderUserCell } from "./renderCell";
 import { userColumns } from "./columns";
+import { useUsers } from "@/lib/services/users";
 
 const users = [
   {
@@ -30,9 +31,16 @@ const users = [
 ];
 
 function UsersPageTemplate() {
+  const { isPending, data } = useUsers();
+
   return (
     <div>
-      <CustomTable columns={userColumns} rows={users} renderCell={renderUserCell} />
+      <CustomTable
+        isLoading={isPending}
+        columns={userColumns}
+        rows={data?.data || []}
+        renderCell={renderUserCell}
+      />
     </div>
   );
 }

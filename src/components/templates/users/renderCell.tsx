@@ -13,7 +13,7 @@ export const renderUserCell = (user: any, columnKey: string) => {
       return (
         <User
           avatarProps={{ radius: "lg", src: user.avatar }}
-          description={user.email}
+          description={user.username}
           name={cellValue}
         >
           {user.email}
@@ -28,10 +28,10 @@ export const renderUserCell = (user: any, columnKey: string) => {
           </p>
         </div>
       );
-    case "status":
+    case "createdAt":
       return (
         <Chip className="capitalize" size="sm" variant="flat">
-          {cellValue}
+          {(cellValue as string).split("T")[0].replaceAll("-", "/")}
         </Chip>
       );
     case "actions":

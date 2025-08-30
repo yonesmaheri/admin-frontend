@@ -6,17 +6,11 @@ import { Button } from "@heroui/react";
 import { CiSettings } from "react-icons/ci";
 import { BiLogOut } from "react-icons/bi";
 import { usePathname } from "next/navigation";
+import { menuItems } from "./menu";
 
 type SidebarLayoutProps = {
   children: ReactNode;
 };
-
-const menuItems = [
-  { name: "Dashboard", href: "/" },
-  { name: "Users", href: "/users" },
-  { name: "Projects", href: "/projects" },
-  { name: "Questions", href: "/questions" },
-];
 
 export default function SidebarLayout({ children }: SidebarLayoutProps) {
   const [time, setTime] = useState<string>("");

@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form, Input, Button, Spinner } from "@heroui/react";
 import { useLogin } from "@/lib/services/auth";
+import { useRouter } from "next/router";
 
 const formSchema = z.object({
   username: z
@@ -20,7 +21,7 @@ type FormValues = z.infer<typeof formSchema>;
 
 function AuthForm() {
   const { mutate, isPending } = useLogin();
-
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -34,8 +35,8 @@ function AuthForm() {
   });
   const onSubmit = handleSubmit((data) => {
     mutate(data, {
-      onSuccess(data, variables, context) {
-        console.log(data);
+      onSuccess() {
+        router.push("/dashboard");
       },
     });
   });
