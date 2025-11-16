@@ -1,21 +1,19 @@
+import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
 export async function middleware(req: NextRequest) {
   const url = req.nextUrl.clone();
-
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get("token");
   try {
-    const res = await fetch("http://yonesma.ir/api/admin/me", {
+    const res = await fetch("https://yonesma.ir/api/admin/me", {
       method: "GET",
       headers: {
-        Cookie: req.headers.get("cookie") || "",
+        authorization: `Bearer ${accessToken?.value}` || "",
       },
-    });    
+    });
     const isLoggedIn = res.ok;
-    let a = await res.json()
-    console.log(a);
-    
-
     if (url.pathname === "/auth" && isLoggedIn) {
       url.pathname = "/dashboard";
       return NextResponse.redirect(url);

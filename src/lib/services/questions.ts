@@ -46,3 +46,22 @@ export const useCreateQuestion = () => {
     },
   });
 };
+
+const deleteQuestion = async (id: number) => {
+  const res = await apiCall.delete(`/questions/${id}`);
+  return res.data;
+};
+
+export const useDeleteQuestion = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteQuestion,
+    onSuccess: () => {
+      toast.success("Question Deleted successfuly", {
+        position: "bottom-center",
+      });
+      queryClient.invalidateQueries({ queryKey: ["questions"] });
+    },
+  });
+};

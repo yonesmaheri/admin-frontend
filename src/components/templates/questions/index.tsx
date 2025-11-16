@@ -4,11 +4,12 @@ import CustomTable from "@/components/modules/table";
 import React, { useEffect } from "react";
 import { renderUserCell } from "./renderCell";
 import { userColumns } from "./columns";
-import { useQuestions } from "@/lib/services/questions";
+import { useDeleteQuestion, useQuestions } from "@/lib/services/questions";
 import HeaderSection from "./header";
 
 function QuestionsPageTemplate() {
   const { isPending, data } = useQuestions();
+  const { mutate, isPending: isDeleting } = useDeleteQuestion();
   useEffect(() => {
     console.log(data);
   }, [isPending]);
@@ -19,7 +20,15 @@ function QuestionsPageTemplate() {
         isLoading={isPending}
         columns={userColumns}
         rows={data || []}
-        renderCell={renderUserCell}
+        renderCell={(question: any, columnKey: string) =>
+          renderUserCell(question, columnKey, (id) => {
+            mutate(+id, {
+              onSuccess: () => {
+                console.log("Question deleted", id);
+              },
+            });
+          })
+        }
       />
     </div>
   );

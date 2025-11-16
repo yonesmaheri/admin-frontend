@@ -5,9 +5,12 @@ import { FaDeleteLeft } from "react-icons/fa6";
 import React from "react";
 import Link from "next/link";
 
-export const renderUserCell = (question: any, columnKey: string) => {
+export const renderUserCell = (
+  question: any,
+  columnKey: string,
+  onDelete?: (id: string) => void
+) => {
   const cellValue = question[columnKey];
-
   switch (columnKey) {
     case "title":
       return cellValue;
@@ -30,7 +33,10 @@ export const renderUserCell = (question: any, columnKey: string) => {
             </span>
           </Tooltip>
           <Tooltip color="danger" content="Delete">
-            <span className="text-lg text-danger cursor-pointer active:opacity-50">
+            <span
+              className="text-lg text-danger cursor-pointer active:opacity-50"
+              onClick={() => onDelete?.(question.id)}
+            >
               <FaDeleteLeft />
             </span>
           </Tooltip>
